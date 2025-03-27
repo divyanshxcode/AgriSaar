@@ -1,12 +1,12 @@
 // Constants and configurations
 const CONFIG = {
-    API_ENDPOINTS: {
-        WEATHER: '/api/weather',
-        MARKET: '/api/market-prices',
-        ADVISORY: '/api/crop-advisory'
-    },
-    REFRESH_INTERVAL: 300000, // 5 minutes
-    ANIMATION_DURATION: 300
+  API_ENDPOINTS: {
+    WEATHER: "/api/weather",
+    MARKET: "/api/market-prices",
+    ADVISORY: "/api/crop-advisory",
+  },
+  REFRESH_INTERVAL: 300000, // 5 minutes
+  ANIMATION_DURATION: 300,
 };
 
 // Main application JavaScript
@@ -436,47 +436,47 @@ function loadCropAdvisory() {
 }
 
 // Event handling using modern practices
-document.addEventListener('DOMContentLoaded', () => {
-    initializeApplication();
-    setupEventListeners();
-    loadInitialData();
+document.addEventListener("DOMContentLoaded", () => {
+  initializeApplication();
+  setupEventListeners();
+  loadInitialData();
 });
 
 const initializeApplication = () => {
-    // Initialize components
-    initializeDashboard();
-    initializeTheme();
-    setupServiceWorker();
+  // Initialize components
+  initializeDashboard();
+  initializeTheme();
+  setupServiceWorker();
 };
 
 const setupEventListeners = () => {
-    // Event delegation for better performance
-    document.addEventListener('click', handleGlobalClick);
-    
-    // Form submission handling
-    const farmForm = document.querySelector('.farm-details-form');
-    if (farmForm) {
-        farmForm.addEventListener('submit', handleFormSubmission);
-    }
+  // Event delegation for better performance
+  document.addEventListener("click", handleGlobalClick);
+
+  // Form submission handling
+  const farmForm = document.querySelector(".farm-details-form");
+  if (farmForm) {
+    farmForm.addEventListener("submit", handleFormSubmission);
+  }
 };
 
 // Modern async/await pattern for data fetching
 const loadInitialData = async () => {
-    try {
-        const [weather, prices, advisory] = await Promise.all([
-            fetchWeatherData(),
-            fetchMarketPrices(),
-            fetchCropAdvisory()
-        ]);
-        
-        updateDashboard({ weather, prices, advisory });
-    } catch (error) {
-        handleError(error);
-    }
+  try {
+    const [weather, prices, advisory] = await Promise.all([
+      fetchWeatherData(),
+      fetchMarketPrices(),
+      fetchCropAdvisory(),
+    ]);
+
+    updateDashboard({ weather, prices, advisory });
+  } catch (error) {
+    handleError(error);
+  }
 };
 
 // Error handling utility
 const handleError = (error) => {
-    console.error('Application error:', error);
-    showUserFriendlyError(error);
+  console.error("Application error:", error);
+  showUserFriendlyError(error);
 };

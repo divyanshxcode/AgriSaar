@@ -1,101 +1,60 @@
-// weather.js - Weather-related functionality
+// weather.js
+const API_KEY = "your_openweather_api_key"; // Replace with your actual API key
 
-// Global weather object
-const weather = {
-  apiKey: "your_api_key_here", // This would be replaced with a real API key
-  baseUrl: "https://api.openweathermap.org/data/2.5/weather", // Example API endpoint
-  units: "metric",
-};
-
-// Function to get weather by location (mock version)
-function getWeatherByLocation(lat, lon) {
-  return new Promise((resolve) => {
-    // Simulate API call with timeout
-    setTimeout(() => {
-      const mockWeather = {
-        main: {
-          temp: Math.round(25 + Math.random() * 10),
-          humidity: Math.round(30 + Math.random() * 50),
-        },
-        weather: [
-          {
-            main: ["Sunny", "Clouds", "Rain", "Thunderstorm"][
-              Math.floor(Math.random() * 4)
-            ],
-            description: [
-              "Clear sky",
-              "Partly cloudy",
-              "Light rain",
-              "Thunderstorm",
-            ][Math.floor(Math.random() * 4)],
-            icon: "01d", // Default icon code
-          },
-        ],
-        wind: {
-          speed: (Math.random() * 10).toFixed(1),
-        },
-        name: "Pune", // Default location name
-      };
-
-      resolve(mockWeather);
-    }, 1000);
-  });
-}
-
-// Function to update weather display with real data
-async function updateWeatherWithRealData() {
+async function fetchWeatherData(location) {
   try {
-    // For demo purposes, we'll use mock data
-    const weatherData = await getWeatherByLocation();
+    // First get coordinates for the location
+    const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(
+      location
+    )}&limit=1&appid=${API_KEY}`;
 
-    const weatherDisplay = {
-      temperature: `${weatherData.main.temp}°C`,
-      description: weatherData.weather[0].main,
-      icon: getWeatherIcon(weatherData.weather[0].icon),
-    };
+    const geoResponse = await fetch(geoUrl);
+    if (!geoResponse.ok) {
+      throw new Error(`HTTP error: ${geoResponse.status}`);
+    }
 
-    // Save to localStorage
-    localStorage.setItem("weatherData", JSON.stringify(weatherDisplay));
+    const geoData = await geoResponse.json();
+    if (!geoData.length) {
+      throw new Error("Location not found");
+    }
 
-    // Update the display
-    document.getElementById("weather-icon").textContent = weatherDisplay.icon;
-    document.getElementById(
-      "temperature"
-    ).textContent = `Temperature: ${weatherDisplay.temperature}`;
-    document.getElementById("weather-description").textContent =
-      weatherDisplay.description;
+    const { lat, lon } = geoData[0];
+
+    // Then get weather data using coordinates
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
+
+    const weatherResponse = await fetch(weatherUrl);
+    if (!weatherResponse.ok) {
+      throw new Error(`HTTP error: ${weatherResponse.status}`);
+    }
+
+    return await weatherResponse.json();
   } catch (error) {
-    console.error("Error fetching weather:", error);
-    document.getElementById("weather-description").textContent =
-      "Weather data unavailable";
+    console.error("Error fetching weather data:", error);
+    return null;
   }
 }
 
-// Helper function to convert weather icon codes to emoji
-function getWeatherIcon(iconCode) {
-  const iconMap = {
-    "01d": "☀️", // clear sky (day)
-    "01n": "🌙", // clear sky (night)
-    "02d": "⛅", // few clouds (day)
-    "02n": "⛅", // few clouds (night)
-    "03d": "☁️", // scattered clouds
-    "03n": "☁️", // scattered clouds
-    "04d": "☁️", // broken clouds
-    "04n": "☁️", // broken clouds
-    "09d": "🌧️", // shower rain
-    "09n": "🌧️", // shower rain
-    "10d": "🌦️", // rain (day)
-    "10n": "🌧️", // rain (night)
-    "11d": "⚡", // thunderstorm
-    "11n": "⚡", // thunderstorm
-    "13d": "❄️", // snow
-    "13n": "❄️", // snow
-    "50d": "🌫️", // mist
-    "50n": "🌫️", // mist
-  };
+function updateWeatherUI(weatherData) {
+  if (!weatherData) {
+    document.getElementById("weather-description").textContent =
+      "Weather data unavailable";
+    return;
+  }
 
-  return iconMap[iconCode] || "⛅";
+  const temperature = document.getElementById("temperature");
+  const weatherDescription = document.getElementById("weather-description");
+  const weatherIcon = document.getElementById("weather-icon");
+
+  // Update temperature
+  temperature.textContent = `Temperature: ${Math.round(
+    weatherData.main.temp
+  )}°C`;
+
+  // Update weather description
+  weatherDescription.textContent = weatherData.weather[0].description;
+
+  // Update weather icon
+  const iconCode = weatherData.weather[0].icon;
+  weatherIcon.innerHTML = `<img src="https://openweathermap.org/img/wn/${iconCode}@2x.png" alt="${weatherData.weather[0].description}">`;
 }
-
-// Initialize weather with real data (commented out for demo)
-// updateWeatherWithRealData();
