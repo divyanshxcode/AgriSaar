@@ -1,0 +1,418 @@
+/* ========== VARIABLES & BASE STYLES ========== */
+:root {
+    /* Color Palette */
+    --primary: #2e7d32;        /* Deep green */
+    --primary-light: #4caf50;  /* Vibrant green */
+    --secondary: #ff9800;      /* Amber */
+    --accent: #2196f3;         /* Blue */
+    --dark: #263238;           /* Dark blue-grey */
+    --light: #f5f7fa;          /* Light grey */
+    --white: #ffffff;
+    --text: #37474f;           /* Dark grey */
+    --text-light: #78909c;     /* Light grey */
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.45s ease;
+    
+    /* Border radius */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+  }
+  
+  /* ========== BASE STYLES ========== */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /* ========== TYPOGRAPHY ========== */
+  h1, h2, h3, h4 {
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: var(--space-md);
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+  
+  .section-icon {
+    font-size: 1.75rem;
+  }
+  
+  /* ========== LAYOUT ========== */
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--space-lg);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-xl);
+  }
+  
+  /* ========== NAVBAR ========== */
+  .navbar {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-md) var(--space-xl);
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .logo-icon {
+    font-size: 1.8rem;
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: var(--space-lg);
+  }
+  
+  .nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+    position: relative;
+  }
+  
+  .nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .nav-links a[aria-current="page"] {
+    font-weight: 600;
+  }
+  
+  .nav-links a[aria-current="page"]::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--white);
+    border-radius: 2px;
+  }
+  
+  .back-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: var(--space-xs) var(--space-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    transition: var(--transition-fast);
+  }
+  
+  .back-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-2px);
+  }
+  
+  /* ========== DASHBOARD CARDS ========== */
+  .dashboard {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-normal);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .dashboard:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .dashboard h2 {
+    color: var(--primary);
+    margin-bottom: var(--space-lg);
+  }
+  
+  /* Farm Details Card */
+  .farm-details {
+    border-top: 4px solid var(--secondary);
+  }
+  
+  .details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+  
+  .details-grid p {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .details-grid strong {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: var(--space-xs);
+  }
+  
+  .details-grid span {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  
+  /* Weather Card */
+  .weather {
+    border-top: 4px solid var(--accent);
+    position: relative;
+  }
+  
+  .weather::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, #4fc3f7, #4dd0e1, #4db6ac);
+  }
+  
+  .weather-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+  }
+  
+  .weather-icon {
+    font-size: 4rem;
+    margin-bottom: var(--space-md);
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+  }
+  
+  #temperature {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+  }
+  
+  #weather-description {
+    color: var(--text-light);
+    text-transform: capitalize;
+  }
+  
+  /* Market Prices Card */
+  .market {
+    border-top: 4px solid var(--primary-light);
+  }
+  
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: var(--space-md);
+    text-align: left;
+  }
+  
+  thead {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: var(--white);
+  }
+  
+  thead th {
+    font-weight: 500;
+  }
+  
+  tbody tr {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: var(--transition-fast);
+  }
+  
+  tbody tr:hover {
+    background-color: rgba(76, 175, 80, 0.05);
+  }
+  
+  tbody tr:last-child {
+    border-bottom: none;
+  }
+  
+  /* ========== FOOTER ========== */
+  .footer {
+    background: var(--dark);
+    color: var(--white);
+    padding: var(--space-xl) 0;
+    margin-top: var(--space-xl);
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-xl);
+    padding: 0 var(--space-lg);
+  }
+  
+  .footer-section h3 {
+    color: var(--white);
+    margin-bottom: var(--space-md);
+    font-size: 1.25rem;
+  }
+  
+  .footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  
+  .footer a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+  
+  .footer a:hover {
+    color: var(--white);
+    transform: translateX(4px);
+  }
+  
+  .footer a::before {
+    content: '→';
+    opacity: 0;
+    transition: var(--transition-fast);
+  }
+  
+  .footer a:hover::before {
+    opacity: 1;
+  }
+  
+  .copyright {
+    text-align: center;
+    margin-top: var(--space-xl);
+    padding-top: var(--space-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+  }
+  
+  /* ========== RESPONSIVE DESIGN ========== */
+  @media (max-width: 992px) {
+    .container {
+      grid-template-columns: 1fr;
+    }
+    
+    .dashboard {
+      min-height: auto;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      gap: var(--space-md);
+      padding: var(--space-md);
+    }
+    
+    .nav-links {
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .back-btn .back-text {
+      display: none;
+    }
+    
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .details-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .weather-icon {
+      font-size: 3rem;
+    }
+    
+    #temperature {
+      font-size: 1.25rem;
+    }
+  }
+  
+  /* ========== ANIMATIONS ========== */
+
+  

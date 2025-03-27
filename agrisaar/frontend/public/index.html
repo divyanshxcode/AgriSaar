@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Kisan Mitra - Your Smart Farming Assistant"
+    />
+    <title>Farm Details - Kisan Mitra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* ========== VARIABLES & BASE STYLES ========== */
+      :root {
+        /* Color Palette */
+        --primary: #2e7d32; /* Deep green */
+        --primary-light: #4caf50; /* Vibrant green */
+        --secondary: #ff9800; /* Amber */
+        --accent: #2196f3; /* Blue */
+        --dark: #263238; /* Dark blue-grey */
+        --light: #f5f7fa; /* Light grey */
+        --white: #ffffff;
+        --text: #37474f; /* Dark grey */
+        --text-light: #78909c; /* Light grey */
+        --border-color: #e0e0e0;
+
+        /* Shadows */
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.15);
+        --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+        /* Transitions */
+        --transition-fast: 0.15s ease;
+        --transition-normal: 0.3s ease;
+        --transition-slow: 0.45s ease;
+
+        /* Border radius */
+        --radius-sm: 6px;
+        --radius-md: 12px;
+        --radius-lg: 18px;
+
+        /* Spacing */
+        --space-xs: 4px;
+        --space-sm: 8px;
+        --space-md: 16px;
+        --space-lg: 24px;
+        --space-xl: 32px;
+      }
+
+      /* ========== BASE STYLES ========== */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--light);
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .page-wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ========== HEADER STYLES ========== */
+      .header {
+        text-align: center;
+        padding: var(--space-xl) 0;
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-light)
+        );
+        color: var(--white);
+        box-shadow: var(--shadow-md);
+        margin-bottom: var(--space-xl);
+      }
+
+      .title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin-bottom: var(--space-sm);
+        gap: var(--space-sm);
+      }
+
+      .icon {
+        font-size: 2.8rem;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
+
+      /* ========== FORM STYLES ========== */
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 var(--space-lg);
+        flex: 1;
+      }
+
+      .farm-details-form {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: var(--space-xl);
+        box-shadow: var(--shadow-md);
+        margin-bottom: var(--space-xl);
+      }
+
+      .form-group {
+        margin-bottom: var(--space-lg);
+      }
+
+      label {
+        display: block;
+        margin-bottom: var(--space-sm);
+        font-weight: 500;
+        color: var(--text);
+      }
+
+      label.required::after {
+        content: "*";
+        color: #f44336;
+        margin-left: var(--space-xs);
+      }
+
+      select,
+      input[type="number"] {
+        width: 100%;
+        padding: var(--space-md);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        font-size: 1rem;
+        font-family: "Poppins", sans-serif;
+        transition: all var(--transition-normal);
+        background-color: var(--white);
+      }
+
+      select:focus,
+      input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+      }
+
+      .radio-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-lg);
+      }
+
+      .radio-group input[type="radio"] {
+        margin-right: var(--space-xs);
+        accent-color: var(--primary);
+      }
+
+      button[type="submit"] {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-light)
+        );
+        color: var(--white);
+        border: none;
+        padding: var(--space-md) var(--space-lg);
+        border-radius: var(--radius-sm);
+        font-size: 1.1rem;
+        font-weight: 500;
+        cursor: pointer;
+        width: 100%;
+        transition: all var(--transition-normal);
+        box-shadow: var(--shadow-sm);
+        margin-top: var(--space-lg);
+      }
+
+      button[type="submit"]:hover {
+        background: linear-gradient(
+          135deg,
+          var(--primary-light),
+          var(--primary)
+        );
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+      }
+
+      button[type="submit"]:active {
+        transform: translateY(0);
+      }
+
+      /* Crop icon options */
+      .icon-option {
+        display: flex;
+        align-items: center;
+        gap: var(--space-sm);
+      }
+
+      /* ========== RESPONSIVE DESIGN ========== */
+      @media (max-width: 768px) {
+        .radio-group {
+          flex-direction: column;
+          gap: var(--space-sm);
+        }
+
+        .title {
+          font-size: 2rem;
+        }
+
+        .farm-details-form {
+          padding: var(--space-lg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page-wrapper">
+      <header class="header">
+        <h1 class="title">
+          <span class="icon">🌾</span>
+          <span class="text">Kisan Mitra</span>
+        </h1>
+        <p class="subtitle">Your Smart Farming Assistant</p>
+      </header>
+
+      <div class="container">
+        <form action="dashboard.html" method="GET" class="farm-details-form">
+          <!-- Region Selection with All States -->
+          <div class="form-group">
+            <label for="region" class="required">Select Region</label>
+            <select id="region" name="region" required>
+              <option value="">Please select a region</option>
+
+              <optgroup label="North India">
+                <option value="punjab">Punjab</option>
+                <option value="haryana">Haryana</option>
+                <option value="delhi">Delhi</option>
+                <option value="uttar-pradesh">Uttar Pradesh</option>
+                <option value="uttarakhand">Uttarakhand</option>
+                <option value="jammu-kashmir">Jammu & Kashmir</option>
+                <option value="himachal-pradesh">Himachal Pradesh</option>
+              </optgroup>
+
+              <optgroup label="South India">
+                <option value="andhra-pradesh">Andhra Pradesh</option>
+                <option value="telangana">Telangana</option>
+                <option value="karnataka">Karnataka</option>
+                <option value="kerala">Kerala</option>
+                <option value="tamil-nadu">Tamil Nadu</option>
+                <option value="pondicherry">Puducherry</option>
+              </optgroup>
+
+              <optgroup label="West India">
+                <option value="rajasthan">Rajasthan</option>
+                <option value="gujarat">Gujarat</option>
+                <option value="maharashtra">Maharashtra</option>
+                <option value="goa">Goa</option>
+              </optgroup>
+
+              <optgroup label="East India">
+                <option value="west-bengal">West Bengal</option>
+                <option value="odisha">Odisha</option>
+                <option value="bihar">Bihar</option>
+                <option value="jharkhand">Jharkhand</option>
+              </optgroup>
+
+              <optgroup label="Central India">
+                <option value="madhya-pradesh">Madhya Pradesh</option>
+                <option value="chhattisgarh">Chhattisgarh</option>
+              </optgroup>
+
+              <optgroup label="North-East India">
+                <option value="assam">Assam</option>
+                <option value="manipur">Manipur</option>
+                <option value="meghalaya">Meghalaya</option>
+                <option value="tripura">Tripura</option>
+                <option value="mizoram">Mizoram</option>
+                <option value="nagaland">Nagaland</option>
+                <option value="arunachal-pradesh">Arunachal Pradesh</option>
+                <option value="sikkim">Sikkim</option>
+              </optgroup>
+
+              <optgroup label="Union Territories">
+                <option value="andaman-nicobar">
+                  Andaman and Nicobar Islands
+                </option>
+                <option value="chandigarh">Chandigarh</option>
+                <option value="dadra-nagar-haveli">
+                  Dadra and Nagar Haveli
+                </option>
+                <option value="daman-diu">Daman and Diu</option>
+                <option value="lakshadweep">Lakshadweep</option>
+                <option value="ladakh">Ladakh</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- Crop Dropdown with Icons -->
+          <div class="form-group">
+            <label for="crop" class="required">Select Crop</label>
+            <select id="crop" name="crop" required>
+              <option value="">--Select--</option>
+              <option value="wheat">🌾 Wheat</option>
+              <option value="rice">🍚 Rice</option>
+              <option value="cotton">🌿 Cotton</option>
+              <option value="sugarcane">🌱 Sugarcane</option>
+              <option value="soybean">🌰 Soybean</option>
+              <option value="maize">🌽 Maize</option>
+              <option value="millets">🌾 Millets</option>
+              <option value="barley">🌿 Barley</option>
+              <option value="pulses">🌰 Pulses</option>
+            </select>
+          </div>
+
+          <!-- Current Season -->
+          <div class="form-group">
+            <label for="season" class="required">Current Season</label>
+            <div class="radio-group">
+              <div>
+                <input
+                  type="radio"
+                  id="kharif"
+                  name="season"
+                  value="kharif"
+                  required
+                />
+                <label for="kharif">Kharif (Monsoon)</label>
+              </div>
+              <div>
+                <input type="radio" id="rabi" name="season" value="rabi" />
+                <label for="rabi">Rabi (Winter)</label>
+              </div>
+              <div>
+                <input type="radio" id="zaid" name="season" value="zaid" />
+                <label for="zaid">Zaid (Summer)</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Farm Size -->
+          <div class="form-group">
+            <label for="farm-size" class="required">Farm Size (in Acres)</label>
+            <input
+              type="number"
+              id="farm-size"
+              name="size"
+              min="0.1"
+              step="0.1"
+              placeholder="Enter farm size"
+              required
+            />
+          </div>
+
+          <button type="submit">Go to Dashboard</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
